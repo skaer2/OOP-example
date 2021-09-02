@@ -2,6 +2,7 @@
 #define SHAPESCOMPONENT_HPP
 
 #include <vector>
+#include <math.h>
 
 class Point{
     public: 
@@ -16,10 +17,11 @@ class Shape{
         Shape(Point center, float newSize);
         virtual void definePoints() = 0; //fills the coordinates vector with points specific to each kind of shape
         void setNewSize(float newSize);
-        void setNewCenter(float newCenter);
+        void setNewCenter(Point newCenter);
         std::vector <Point> getCoords();
+        Point getCenter();
 
-    private:
+    protected:
         std::vector <Point> coordinates; //vector containing coordinates used to render the shape
         float size; //size from the center point
 };
@@ -30,7 +32,6 @@ class Circle : public Shape{
         Circle(Point center, float size);
         virtual void definePoints();
         float computeCircumference();
-
 };
 
 class Square : public Shape{

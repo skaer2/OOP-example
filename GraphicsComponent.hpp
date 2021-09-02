@@ -2,19 +2,18 @@
 #define GRAPHICSCOMPONENT_HPP
 
 #include <vector>
+#include <stdio.h>
+#include <windows.h>
 #include "shapesComponent.hpp"
 
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-class GraphicsComponent{
-    public:
-        void run(int argc, char *argv[]);
+namespace GraphicsComponent{
+        int run(int argc, char *argv[]);
         void setNewTargetVector(std::vector <Shape*> newTargetVector);
-
-    private:
+        void keyboardInput(int key, int x, int y);
         int initResources();
-        void keyboardInput();
         void display();
         std::vector <Shape*> targetVector;
         int currentShapeIndex;

@@ -1,6 +1,6 @@
 #include "GraphicsComponent.hpp"
 
-GraphicsComponent::run(int argc, char *argv[]){
+int GraphicsComponent::run(int argc, char *argv[]){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
 	glutInitWindowSize(640, 480);
@@ -18,11 +18,13 @@ GraphicsComponent::run(int argc, char *argv[]){
 		return 1;
 	}
 
-    if (!init_resources()) {
+    if (!initResources()) {
 		glutDisplayFunc(display);
         glutSpecialFunc(keyboardInput);
 		glutMainLoop();
 	}
+
+    return 0;
 }
 
 void GraphicsComponent::setNewTargetVector(std::vector <Shape*> newTarget){
@@ -31,17 +33,17 @@ void GraphicsComponent::setNewTargetVector(std::vector <Shape*> newTarget){
 
 void GraphicsComponent::keyboardInput(int key, int x, int y){
     switch(key){
-        GLUT_KEY_RIGHT:
+        case GLUT_KEY_RIGHT:
             currentShapeIndex++;
             break;
 
-        GLUT_KEY_LEFT:
+        case GLUT_KEY_LEFT:
             currentShapeIndex--;
             break;
     }
 
     if(currentShapeIndex < 0) currentShapeIndex = targetVector.size();
-    if(currentShapeIndex > targetVector.size()) currentShapeIndex = 0;
+    if(currentShapeIndex > (int) targetVector.size()) currentShapeIndex = 0;
 
 }
 
@@ -63,12 +65,12 @@ void GraphicsComponent::display(){
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER
-                , targetVector.at(currentShapeIndex).getCoords.size() * sizeof(Shape)
-                , &targetVector.at(currentShapeIndex).getCoords.front()
+                , targetVector.at(currentShapeIndex)->getCoords().size() * sizeof(Shape)
+                , &targetVector.at(currentShapeIndex)->getCoords().front()
                 , GL_DYNAMIC_DRAW);
 
 
-    glDrawArrays(GL_TRIANGLE_FAN, 0, targetVector.at(currentShapeIndex).getCoords.size());
+    glDrawArrays(GL_TRIANGLE_FAN, 0, targetVector.at(currentShapeIndex)->getCoords().size());
 
     glutSwapBuffers();
 
