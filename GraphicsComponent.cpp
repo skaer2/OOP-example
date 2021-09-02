@@ -23,15 +23,32 @@ GraphicsComponent::run(int argc, char *argv[]){
 
     if (!init_resources()) {
 		glutDisplayFunc(display);
+        glutSpecialFunc(keyboardInput);
 		glutMainLoop();
 	}
 }
 
-void setNewTargetVector(std::vector <Shape*> newTarget){
+void GraphicsComponent::setNewTargetVector(std::vector <Shape*> newTarget){
+    targetVector = newTarget; 
+}
+
+void GraphicsComponent::keyboardInput(int key, int x, int y){
+    switch(key){
+        GLUT_KEY_RIGHT:
+            currentShapeIndex++;
+            break;
+
+        GLUT_KEY_LEFT:
+            currentShapeIndex--;
+            break;
+    }
+
+    if(currentShapeIndex < 0) currentShapeIndex = targetVector.size();
+    if(currentShapeIndex > targetVector.size()) currentShapeIndex = 0;
 
 }
 
-int initResources(){
+int GraphicsComponent::initResources(){
     currentShapeIndex = 0;
 
     for(auto element: targetVector){
@@ -40,15 +57,23 @@ int initResources(){
 
     glGenBuffers(1, &vbo);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER
-                , targetVector.at(0).getCoords.size() * sizeof(Shape)
-                , &targetVector.at(0).getCoords.front()
-                , GL_DYNAMIC_DRAW);
-
+   
     return 0;
 }
 
-void display(){
+void GraphicsComponent::display(){
     glClearColor(1,1,1,1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER
+                , targetVector.at(currentShapeIndex).getCoords.size() * sizeof(Shape)
+                , &targetVector.at(currentShapeIndex).getCoords.front()
+                , GL_DYNAMIC_DRAW);
+
+
+    glDrawArrays(GL_TRIANGLE_FAN, 0, targetVector.at(currentShapeIndex).getCoords.size());
+
+    glutSwapBuffers();
+
+
 }
