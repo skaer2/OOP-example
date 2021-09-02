@@ -9,7 +9,7 @@
 int main(int argc, char *argv[]){
 
     std::vector <Shape*> shapes;
-    shapes.push_back(new Circle());
+    shapes.push_back(new Square(Point(0,0), 10.0f));
 
     GraphicsComponent::setNewTargetVector(shapes);
     GraphicsComponent::run(argc, argv);

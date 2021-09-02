@@ -4,7 +4,7 @@
 #include <vector>
 #include <stdio.h>
 #include <windows.h>
-#include "shapesComponent.hpp"
+#include "ShapesComponent.hpp"
 
 #include <GL/glew.h>
 #include <GL/glut.h>
@@ -15,9 +15,7 @@ namespace GraphicsComponent{
         void keyboardInput(int key, int x, int y);
         int initResources();
         void display();
-        std::vector <Shape*> targetVector;
-        int currentShapeIndex;
-        GLuint vbo;
+        GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
 
 };
 

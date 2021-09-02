@@ -1,5 +1,9 @@
 #include "GraphicsComponent.hpp"
 
+GLuint vbo;
+std::vector <Shape*> targetVector;
+int currentShapeIndex;
+
 int GraphicsComponent::run(int argc, char *argv[]){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
@@ -42,8 +46,8 @@ void GraphicsComponent::keyboardInput(int key, int x, int y){
             break;
     }
 
-    if(currentShapeIndex < 0) currentShapeIndex = targetVector.size();
-    if(currentShapeIndex > (int) targetVector.size()) currentShapeIndex = 0;
+    if(currentShapeIndex < 0) currentShapeIndex = targetVector.size() - 1;
+    if(currentShapeIndex > (int) targetVector.size() - 1) currentShapeIndex = 0;
 
 }
 
@@ -62,7 +66,9 @@ int GraphicsComponent::initResources(){
 
 void GraphicsComponent::display(){
     glClearColor(1,1,1,1);
+    glClear(GL_COLOR_BUFFER_BIT);
 
+    glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER
                 , targetVector.at(currentShapeIndex)->getCoords().size() * sizeof(Shape)

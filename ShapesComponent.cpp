@@ -6,7 +6,7 @@ Point::Point(int x, int y){
 }
 
 Shape::Shape(){ //creates a unit sized shape
-    size = 0.0f;
+    size = 1.0f;
     coordinates.push_back(Point(0.0f, 0.0f));
 }
 
