@@ -4,6 +4,9 @@
 #include <vector>
 #include "shapesComponent.hpp"
 
+#include <GL/glew.h>
+#include <GL/glut.h>
+
 class GraphicsComponent{
     public:
         void run(int argc, char *argv[]);

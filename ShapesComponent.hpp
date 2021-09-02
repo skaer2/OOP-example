@@ -5,6 +5,7 @@
 
 class Point{
     public: 
+        Point(int x, int y);
         float x;
         float y;
 };
@@ -13,14 +14,14 @@ class Shape{
     public:
         Shape(); //creates a unit sized shape
         Shape(Point center, float newSize);
-        virtual void definePoints() = 0;
+        virtual void definePoints() = 0; //fills the coordinates vector with points specific to each kind of shape
         void setNewSize(float newSize);
         void setNewCenter(float newCenter);
         std::vector <Point> getCoords();
 
     private:
-        std::vector <Point> coordinates;
-        float size;
+        std::vector <Point> coordinates; //vector containing coordinates used to render the shape
+        float size; //size from the center point
 };
 
 class Circle : public Shape{

@@ -1,8 +1,5 @@
 #include "GraphicsComponent.hpp"
 
-#include <GL/glew.h>
-#include <GL/glut.h>
-
 GraphicsComponent::run(int argc, char *argv[]){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);

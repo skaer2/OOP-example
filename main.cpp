@@ -3,10 +3,12 @@
 #include <iostream>
 #include <vector>
 
+#include <GL/glew.h>
+#include <GL/glut.h>
+
 int main(int argc, char *argv[]){
 
-    GraphicsComponent g = new GraphicsComponent();
-    g.setNewTarget(new Circle());
+    GraphicsComponent g;
 
     return 0;
 }
