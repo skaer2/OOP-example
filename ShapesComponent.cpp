@@ -1,6 +1,6 @@
 #include "ShapesComponent.hpp"
 
-Point::Point(int x, int y){
+Point::Point(float x, float y){
     this->x = x;
     this->y = y;
 }
@@ -50,7 +50,7 @@ void Circle::definePoints(){
 
     for (int i = 0; i <= 20; i++){
         this->coordinates.push_back(
-            Point(x + (size * cos(i * twicePi / 20)), y + (size * sin(i * twicePi / 20)))
+            Point(x + ((size / 2) * cos(i * twicePi / 20)), y + ((size / 2) * sin(i * twicePi / 20)))
             );
     }
 }
@@ -70,19 +70,19 @@ Square::Square(Point center, float size)
 }
 
 void Square::definePoints(){
-    int x, y;
+    float x, y;
 
-    x = getCenter().x - size;
-    y = getCenter().y + size;
+    x = getCenter().x - size / 2;
+    y = getCenter().y + size / 2;
     coordinates.push_back(Point(x, y));
-    x = getCenter().x + size;
-    y = getCenter().y + size;
+    x = getCenter().x + size / 2;
+    y = getCenter().y + size / 2;
     coordinates.push_back(Point(x, y));
-    x = getCenter().x + size;
-    y = getCenter().y - size;
+    x = getCenter().x + size / 2;
+    y = getCenter().y - size / 2;
     coordinates.push_back(Point(x, y));
-    x = getCenter().x - size;
-    y = getCenter().y - size;
+    x = getCenter().x - size / 2;
+    y = getCenter().y - size / 2;
     coordinates.push_back(Point(x, y));
 }
 
@@ -101,15 +101,15 @@ Triangle::Triangle(Point center, float size)
 }
 
 void Triangle::definePoints(){
-    int x, y;
+    float x, y;
 
-    x = getCenter().x - size;
-    y = getCenter().y - size;
+    x = getCenter().x - size / 2;
+    y = getCenter().y - size / 2;
     coordinates.push_back(Point(x, y));
     x = getCenter().x;
-    y = getCenter().y + size;
+    y = getCenter().y + size / 2;
     coordinates.push_back(Point(x, y));
-    x = getCenter().x + size;
-    y = getCenter().y - size;
+    x = getCenter().x + size / 2;
+    y = getCenter().y - size / 2;
     coordinates.push_back(Point(x, y));
 }

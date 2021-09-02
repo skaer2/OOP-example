@@ -1,4 +1,5 @@
 #include "GraphicsComponent.hpp"
+#include <iostream>
 
 GLuint vbo;
 std::vector <Shape*> targetVector;
@@ -7,7 +8,7 @@ int currentShapeIndex;
 int GraphicsComponent::run(int argc, char *argv[]){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
-	glutInitWindowSize(640, 480);
+	glutInitWindowSize(480, 480);
 	glutCreateWindow("OOP example");
 
     GLenum glew_status = glewInit();
@@ -49,18 +50,20 @@ void GraphicsComponent::keyboardInput(int key, int x, int y){
     if(currentShapeIndex < 0) currentShapeIndex = targetVector.size() - 1;
     if(currentShapeIndex > (int) targetVector.size() - 1) currentShapeIndex = 0;
 
+    glutPostRedisplay();
 }
 
 int GraphicsComponent::initResources(){
     currentShapeIndex = 0;
 
+    if (targetVector.size() == 0) {
+        std::cout << "Error: no shapes in vector";
+        return 1;
+    }
     for(auto element: targetVector){
         element->definePoints();
     }
 
-    glGenBuffers(1, &vbo);
-
-   
     return 0;
 }
 
@@ -68,17 +71,17 @@ void GraphicsComponent::display(){
     glClearColor(1,1,1,1);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER
-                , targetVector.at(currentShapeIndex)->getCoords().size() * sizeof(Shape)
-                , &targetVector.at(currentShapeIndex)->getCoords().front()
-                , GL_DYNAMIC_DRAW);
+    glColor3ub(0,0,0);
+    glBegin(GL_TRIANGLE_FAN);
 
+    for(int i = 1; i < (int) targetVector.at(currentShapeIndex)->getCoords().size(); i++){
 
-    glDrawArrays(GL_TRIANGLE_FAN, 0, targetVector.at(currentShapeIndex)->getCoords().size());
+        glVertex2f( targetVector.at(currentShapeIndex)->getCoords().at(i).x
+                  , targetVector.at(currentShapeIndex)->getCoords().at(i).y
+                  );
+    }
+    glEnd();
 
     glutSwapBuffers();
-
 
 }

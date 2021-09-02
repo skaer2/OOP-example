@@ -10,12 +10,14 @@
 #include <GL/glut.h>
 
 namespace GraphicsComponent{
-        int run(int argc, char *argv[]);
-        void setNewTargetVector(std::vector <Shape*> newTargetVector);
-        void keyboardInput(int key, int x, int y);
+        int run(int argc, char *argv[]); //starts OpenGL pipeline
+        void setNewTargetVector(std::vector <Shape*> newTargetVector); //sets the vector with shapes to render
+                                                                       //set the vector before calling run
+
+        //these functions are used in run by OpenGL
+        void keyboardInput(int key, int x, int y); 
         int initResources();
         void display();
-        GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
 
 };
 
